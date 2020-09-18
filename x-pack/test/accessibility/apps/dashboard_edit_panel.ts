@@ -46,23 +46,16 @@ export default function ({ getService, getPageObjects }: FtrProviderContext) {
       await a11y.testAppSnapshot();
     });
 
-    // // custom time range
-    // it('dashboard embeddable custom time range', async () => {
-    //   await testSubjects.click('embeddablePanelAction-CUSTOM_TIME_RANGE');
-    //   await a11y.testAppSnapshot();
-    //   await retry.waitFor(
-    //     'Ensure cancel per panel Time Range Button exists',
-    //     async () => await testSubjects.exists('cancelPerPanelTimeRangeButton')
-    //   );
-    //   // await testSubjects.moveMouseTo('cancelPerPanelTimeRangeButton');
-    //   await testSubjects.click('cancelPerPanelTimeRangeButton');
-    // });
-
-    // [duplicate-id]: Ensures every id attribute value is unique
-    // clone panel
     it('dashboard embeddable clone panel', async () => {
       await testSubjects.click('embeddablePanelAction-clonePanel');
-      // await testSubjects.click('embeddablePanelAction-CUSTOM_TIME_RANGE');
+      await a11y.testAppSnapshot();
+      await dashboardPanelActions.removePanelByTitle('Visualization PieChart (copy)');
+    });
+
+    // custom time range has super date picker a11y error
+    it.skip('dashboard embeddable custom time range', async () => {
+      await testSubjects.click('embeddablePanelToggleMenuIcon');
+      await testSubjects.click('embeddablePanelAction-CUSTOM_TIME_RANGE');
       await a11y.testAppSnapshot();
     });
 
